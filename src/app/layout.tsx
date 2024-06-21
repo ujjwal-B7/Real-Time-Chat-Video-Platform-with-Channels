@@ -6,8 +6,10 @@ const font = Open_Sans({ subsets: ["latin"] });
 
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import ModalProvider from "@/components/providers/modal-provider";
 
 import { cn } from "@/lib/utils";
+
 
 export const metadata: Metadata = {
   title: "Discord clone",
@@ -30,6 +32,7 @@ export default function RootLayout({
             enableSystem={false}
             storageKey="discord-theme"
           >
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </body>
