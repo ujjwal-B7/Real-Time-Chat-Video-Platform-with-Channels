@@ -5,6 +5,7 @@ import { Channel, ChannelType, MemberRole, Server } from "@prisma/client";
 import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";
 import ActionToolTip from "../ActionToolTip";
+import { useModal } from "@/hooks/useModalStore";
 
 interface ServerChannelProps {
   channel: Channel;
@@ -12,6 +13,7 @@ interface ServerChannelProps {
   role?: MemberRole;
 }
 
+// here i am storing icon name as a reference so when the icon is selected then the variable Icon is treated as a icon so i rendered Icon component as the icon
 const iconMap = {
   [ChannelType.TEXT]: Hash,
   [ChannelType.AUDIO]: Mic,
@@ -23,9 +25,11 @@ export const ServerChannel = ({
   server,
   role,
 }: ServerChannelProps) => {
+  const { onOpen } = useModal();
   const params = useParams();
   const router = useRouter();
 
+  //here icon stores the lucide react icons reference so Icon is treated as a component
   const Icon = iconMap[channel.type];
 
   return (
@@ -48,10 +52,16 @@ export const ServerChannel = ({
       {channel.name !== "general" && role !== MemberRole.GUEST && (
         <div className="ml-auto flex items-center gap-x-2">
           <ActionToolTip label="Edit">
-            <Edit className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition" />
+            <Edit
+              className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
+              onClick={() => onOpen("editChannel", { server, channel })}
+            />
           </ActionToolTip>
           <ActionToolTip label="Delete">
-            <Trash className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition" />
+            <Trash
+              className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
+              onClick={() => onOpen("deleteChannel", { server, channel })}
+            />
           </ActionToolTip>
         </div>
       )}

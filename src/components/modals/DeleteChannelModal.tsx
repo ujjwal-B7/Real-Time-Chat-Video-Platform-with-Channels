@@ -1,5 +1,6 @@
 "use client";
 
+import qs from "query-string";
 import axios from "axios";
 
 import {
@@ -16,22 +17,30 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const DeleteServerModal = () => {
+const DeleteChannelModal = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onClose, type, data } = useModal();
-  const server = data?.server;
+  const channel = data?.channel;
+  const serverId = data?.server?.id;
 
-  const isModalOpen = isOpen && type === "deleteServer";
+  const isModalOpen = isOpen && type === "deleteChannel";
 
   //leave server
-  const handleDeleteServer = async () => {
+  const handleDeleteChannel = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/servers/${server?.id}`);
+
+      const url = qs.stringifyUrl({
+        url: `/api/channels/${channel?.id}`,
+        query: {
+          serverId,
+        },
+      });
+      await axios.delete(url);
       onClose();
       router.refresh();
-      router.push("/");
+      router.push(`/servers/${serverId}`);
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +56,7 @@ const DeleteServerModal = () => {
             <DialogDescription className="text-center text-zinc-500">
               Are you sure, you want to do this? <br />
               <span className="font-semibold text-indigo-500">
-                {server?.name}
+                #{channel?.name}
               </span>{" "}
               will be permanently deleted.
             </DialogDescription>
@@ -59,7 +68,7 @@ const DeleteServerModal = () => {
               </Button>
               <Button
                 disabled={isLoading}
-                onClick={handleDeleteServer}
+                onClick={handleDeleteChannel}
                 variant="primary"
               >
                 Confirm
@@ -72,4 +81,4 @@ const DeleteServerModal = () => {
   );
 };
 
-export default DeleteServerModal;
+export default DeleteChannelModal;
