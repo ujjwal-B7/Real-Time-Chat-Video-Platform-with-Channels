@@ -11,7 +11,7 @@ export type ServerWithMembersAndProfiles = Server & {
 };
 
 //custom types for socket server
-export type NextResponseServerIo = NextApiResponse & {
+export type NextApiResponseServerIo = NextApiResponse & {
   socket: Socket & {
     server: NetServer & {
       io: SocketIoServer;

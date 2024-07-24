@@ -2,7 +2,7 @@ import { Server as NetServer } from "http";
 
 import { Server as ServerIO } from "socket.io";
 
-import { NextResponseServerIo } from "@/types";
+import { NextApiResponseServerIo } from "@/types";
 import { NextRequest } from "next/server";
 import { NextApiRequest } from "next";
 

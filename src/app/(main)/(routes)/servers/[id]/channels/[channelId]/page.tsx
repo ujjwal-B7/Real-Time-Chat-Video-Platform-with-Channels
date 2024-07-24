@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import { ChatHeader } from "@/components/chat/ChatHeader";
+import ChatInput from "@/components/chat/ChatInput";
 
 interface ChannelIdProps {
   params: {
@@ -38,6 +39,16 @@ export default async function ChannelPage({ params }: ChannelIdProps) {
         serverId={channel.serverId}
         name={channel.name}
         type="channel"
+      />
+      <div className="h-[calc(100vh-8.5rem)]">Future Messages</div>
+      <ChatInput
+        name={channel.name}
+        type="channel"
+        apiUrl="/api/socket/messages"
+        query={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
       />
     </div>
   );
