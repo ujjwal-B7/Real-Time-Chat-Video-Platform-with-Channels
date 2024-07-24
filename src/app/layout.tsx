@@ -5,11 +5,11 @@ import "./globals.css";
 const font = Open_Sans({ subsets: ["latin"] });
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import ModalProvider from "@/components/providers/modal-provider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import ModalProvider from "@/components/providers/ModalProvider";
 
 import { cn } from "@/lib/utils";
-
+import { SocketProvider } from "@/components/providers/SocketProvider";
 
 export const metadata: Metadata = {
   title: "Discord clone",
@@ -32,8 +32,10 @@ export default function RootLayout({
             enableSystem={false}
             storageKey="discord-theme"
           >
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              {children}
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>
