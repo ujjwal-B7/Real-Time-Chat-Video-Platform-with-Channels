@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 import { ChatHeader } from "@/components/chat/ChatHeader";
 import ChatInput from "@/components/chat/ChatInput";
+import ChatMessages from "@/components/chat/ChatMessages";
 
 interface ChannelIdProps {
   params: {
@@ -40,7 +41,9 @@ export default async function ChannelPage({ params }: ChannelIdProps) {
         name={channel.name}
         type="channel"
       />
-      <div className="h-[calc(100vh-8.5rem)]">Future Messages</div>
+
+      <ChatMessages />
+
       <ChatInput
         name={channel.name}
         type="channel"
