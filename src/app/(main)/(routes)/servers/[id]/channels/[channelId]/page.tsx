@@ -35,14 +35,27 @@ export default async function ChannelPage({ params }: ChannelIdProps) {
   if (!channel || !member) return redirect("/");
 
   return (
-    <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-screen">
       <ChatHeader
         serverId={channel.serverId}
         name={channel.name}
         type="channel"
       />
 
-      <ChatMessages />
+      <ChatMessages
+        member={member}
+        name={channel.name}
+        type="channel"
+        apiUrl="/api/messages"
+        socketUrl="/api/socket/messages"
+        socketQuery={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
+        chatId={channel.id}
+        paramValue={channel.id}
+        paramKey="channelId"
+      />
 
       <ChatInput
         name={channel.name}
