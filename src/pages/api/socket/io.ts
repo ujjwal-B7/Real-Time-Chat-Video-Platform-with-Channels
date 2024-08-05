@@ -6,37 +6,30 @@ import { NextApiResponseServerIo } from "@/types";
 import { NextRequest } from "next/server";
 import { NextApiRequest } from "next";
 
-// export const bodyParser = false;
-
-// export const GET = async (req: NextApiRequest, res: NextResponseServerIo) => {
-//   if (!res.socket.server.io) {
-//     const path = "/api/socket";
-//     const httpServer: NetServer = res.socket.server as any;
-//     const io = new ServerIO(httpServer, {
-//       path: path,
-//       addTrailingSlash: false,
-//     });
-//     res.socket.server.io = io;
-//   }
-//   res.end();
-// };
-
+// preventing the default parsing of the incoming request body as next js automatically parses the request body , because socket io handles the req body that have messages or any files by itself
 export const config = {
   api: {
     bodyParser: false,
   },
 };
 
-const ioHandler = (req: NextRequest, res: NextResponseServerIo) => {
+const ioHandler = (req: NextRequest, res: NextApiResponseServerIo) => {
+  //checking if the io instance is already created and attached to the server socket or not
   if (!res.socket.server.io) {
+    //path for socket connection,  specifies the endpoint path where the Socket.IO server will listen for incoming connections.
     const path = "/api/socket/io";
+
+    //get the http server from the res
     const httpServer: NetServer = res.socket.server as any;
+
     const io = new ServerIO(httpServer, {
       path: path,
       addTrailingSlash: false,
     });
+    // Attach the Socket.IO server to the HTTP server
     res.socket.server.io = io;
   }
+
   res.end();
 };
 

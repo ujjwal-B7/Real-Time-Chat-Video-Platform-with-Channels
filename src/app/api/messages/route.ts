@@ -3,7 +3,7 @@ import { currentProfile } from "@/lib/currentProfile";
 import { db } from "@/lib/db";
 import { Message } from "@prisma/client";
 
-//at a i need to fetch a 10 messages...and another 10 and goes on
+//at a time i need to fetch a 10 messages...and another 10 and goes on
 const MESSAGES_BATCH = 10;
 
 export async function GET(req: NextRequest) {
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
     const { searchParams } = new URL(req.url);
 
-    //cursor method is used to tell the infinite load from what message to load the next batch of messages
+    // cursor method is used to tell the infinite load from what message to load the next batch of messages
     const cursor = searchParams.get("cursor");
     const channelId = searchParams.get("channelId");
 
@@ -72,7 +72,6 @@ export async function GET(req: NextRequest) {
       items: messages,
       nextCursor,
     });
-    
   } catch (error) {
     console.log("MESSAGES_GET", error);
     return new NextResponse("Internal Error", { status: 500 });

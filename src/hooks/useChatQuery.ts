@@ -36,6 +36,8 @@ export const useChatQuery = ({
     useInfiniteQuery({
       queryKey: [queryKey],
       queryFn: fetchMessages,
+
+      // getNextPageParam function is used to determine the cursor for the next page of messages
       getNextPageParam: (lastPage) => lastPage?.nextCursor,
       refetchInterval: isConnected ? false : 1000,
       initialPageParam: undefined,

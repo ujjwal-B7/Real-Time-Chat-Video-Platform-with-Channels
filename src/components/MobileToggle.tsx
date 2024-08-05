@@ -17,6 +17,8 @@ export const MobileToggle = ({ serverId }: { serverId: string }) => {
         <div className="w-[72px]">
           <NavigationSidebar />
         </div>
+
+        {/* in web view the server side bar is rendered through layout.tsx where we are getting the server id through params...but in the mobile view the sidebar hides so while initially loading the page the sidebar is not loaded so server id is also not fetched through params...so while toggling the sidebar we are passing the server id to the sidebar so that the sidebar shows all the data of the server */}
         <ServerSideBar id={serverId} />
       </SheetContent>
     </Sheet>

@@ -16,7 +16,7 @@ const SocketContext = createContext<SocketContextType>({
   isConnected: false,
 });
 
-//creating a use socket hook to be used through out the app
+// creating a use socket hook to be used through out the app
 export const useSocket = () => {
   return useContext(SocketContext);
 };

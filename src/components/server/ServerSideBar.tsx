@@ -29,7 +29,7 @@ const roleIconMap = {
   [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-rose-500" />,
 };
 
-//fetching the id and profile and details from db.server here also and in the layout also. Here is why because this side bar is also used as mobile sidebar and mobile side dont have access to the layout.tsx as in the web view component is being rendered through the layout.tsx
+// fetching the id and profile and details from db.server here also and in the layout also. Here is why because this side bar is also used as mobile sidebar and mobile side dont have access to the layout.tsx as in the web view component is being rendered through the layout.tsx
 const ServerSideBar = async ({ id }: ServerSideBarProps) => {
   const profile = await currentProfile();
 

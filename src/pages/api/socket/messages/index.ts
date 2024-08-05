@@ -5,6 +5,7 @@ import { NextApiResponseServerIo } from "@/types";
 import { currentProfilePages } from "@/lib/currentProfileForPages";
 import { db } from "@/lib/db";
 
+// creating the new messages 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponseServerIo
@@ -75,7 +76,7 @@ export default async function handler(
       },
     });
 
-    //immediately emitting the socket io for all the connections
+    // immediately emitting the socket io for all the connections
     const channelKey = `chat:${channelId}:messages`;
 
     // channel key represents unique key using channelId denoting in which channel the message is created

@@ -9,12 +9,14 @@ import ChatMessages from "@/components/chat/ChatMessages";
 
 interface ChannelIdProps {
   params: {
-    serverId: string;
+    id: string;
     channelId: string;
   };
 }
 
 export default async function ChannelPage({ params }: ChannelIdProps) {
+  console.log("params.serverId is valid?", params.id);
+
   const profile = await currentProfile();
 
   if (!profile) return auth().redirectToSignIn();
@@ -25,9 +27,10 @@ export default async function ChannelPage({ params }: ChannelIdProps) {
     },
   });
 
+  //checking if the user is member of this channel or not....if a user directly navigates throught the url then they might enter the channel conversation
   const member = await db.member.findFirst({
     where: {
-      serverId: params.serverId,
+      serverId: params.id,
       profileId: profile.id,
     },
   });
@@ -43,18 +46,18 @@ export default async function ChannelPage({ params }: ChannelIdProps) {
       />
 
       <ChatMessages
-        member={member}
-        name={channel.name}
+        member={member} // passing my details( logged in user details to render in the chat )
+        name={channel.name} // channel name to display #welcome to channel
         type="channel"
-        apiUrl="/api/messages"
-        socketUrl="/api/socket/messages"
+        apiUrl="/api/messages" //endpoint for loading the messages
+        socketUrl="/api/socket/messages" //endpoint for creating new messages
         socketQuery={{
           channelId: channel.id,
           serverId: channel.serverId,
         }}
         chatId={channel.id}
-        paramValue={channel.id}
-        paramKey="channelId"
+        paramValue={channel.id} //passing channel id to fetch this channels chat
+        paramKey="channelId" //passing the channels type as we are using same chat message for channel and conversation with particular
       />
 
       <ChatInput
