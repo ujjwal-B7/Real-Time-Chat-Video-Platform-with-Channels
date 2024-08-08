@@ -29,6 +29,30 @@ export const useChatSocket = ({
 
     // socket instance to update the message in real time
     socket.on(updateKey, (message: MessageWithMemberWithProfile) => {
+      /* 
+      react query by default caches the data
+       ** so before updating the particular message , we are confirming that the message is in right format, if not then update will be failed
+       ** the [queryKey] below represents the particular  chat messages
+       ** oldData is the object which is in format oldData.pages.items
+            {"pages": [
+              {
+                "items": [
+                  {
+                    "id": "1",
+                    "content": "Hello!",
+                    "createdAt": "2024-01-01T00:00:00Z",
+                    "updatedAt": "2024-01-01T00:00:00Z",
+                    "member": {
+                      "id": "1",
+                      "profile": {
+                        "id": "1",
+                        "name": "User1"
+                      }
+                    }
+                  },
+                ]
+            }
+      */
       queryClient.setQueryData([queryKey], (oldData: any) => {
         if (!oldData || !oldData.pages || oldData.pages.length === 0) {
           return oldData;
@@ -71,7 +95,6 @@ export const useChatSocket = ({
           ...newData[0],
           items: [message, ...newData[0].items],
         };
-
         return {
           ...oldData,
           pages: newData,
