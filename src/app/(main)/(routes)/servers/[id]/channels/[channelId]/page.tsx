@@ -27,7 +27,7 @@ export default async function ChannelPage({ params }: ChannelIdProps) {
     },
   });
 
-  //checking if the user is member of this channel or not....if a user directly navigates throught the url then they might enter the channel conversation
+  //checking if the user is member of this channel or not....if a user directly navigates through the url then they might enter the channel conversation
   const member = await db.member.findFirst({
     where: {
       serverId: params.id,

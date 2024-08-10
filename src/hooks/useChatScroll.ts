@@ -50,11 +50,11 @@ export const useChatScroll = ({
         return false;
       }
 
-      /*  if we are not too far from the bottom then scrolling down to the bottom, but if the user is searching for messages and are at the upper levels then not scrolling to the bottom as it might interrupt their searching 
+      /*  if we are not too far from the bottom then scrolling down to the bottom, but if the user is searching for messages and are at the upper levels then not scrolling to the bottom as it might interrupt their searching
        ** scrollHeight: The total height of the content in the chat container.
        **  scrollTop: The current vertical scroll position.
        ** clientHeight: The height of the visible part of the chat container.
-      */
+       */
       const distanceFromBottom =
         topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight;
       return distanceFromBottom <= 100;
