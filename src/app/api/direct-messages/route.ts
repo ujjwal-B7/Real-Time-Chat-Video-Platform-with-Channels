@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     if (cursor) {
       messages = await db.directMessage.findMany({
         take: MESSAGES_BATCH,
-        //skipping the current messages where the cursor is pointing recently so we can get the next page older messages
+        // skipping the current messages where the cursor is pointing recently so we can get the next page older messages
         skip: 1,
         // built in prisma property cursor, it indicates that we are going to start fetching the messages from the message point that we pass from the useInfiniteQuery,
         // for eg: if we are currently loading latest 10 messages then when we scroll then the we are passing the old message starting point as a cursor so we can get the older messages

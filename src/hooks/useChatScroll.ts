@@ -46,6 +46,7 @@ export const useChatScroll = ({
         return true;
       }
 
+      // !topDiv means we havent scrolled upside, so we stick to the bottom of the page only
       if (!topDiv) {
         return false;
       }

@@ -83,7 +83,7 @@ const CreateChannelModal = () => {
     onClose();
   };
 
-  console.log(params.id, "serverid");
+  // console.log(params.id, "serverid");
 
   // handlesubmit function
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -92,7 +92,7 @@ const CreateChannelModal = () => {
       const url = qs.stringifyUrl({
         url: "/api/channels",
         query: {
-          serverId: params.id,
+          serverId: params?.id,
         },
       });
       await axios.post(url, values);
